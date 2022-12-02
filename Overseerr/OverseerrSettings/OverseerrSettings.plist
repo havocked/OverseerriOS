@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>APIKey</key>
-	<string>MTY2ODc3ODYwODAwM2E4YmY5NDY5LTBmMGItNGQ2Yy1iMmRkLTI5ZGU1ZGRjOWUzNSk=</string>
+	<string>{OVERSEERR_API_KEY}</string>
 </dict>
 </plist>
