@@ -8,12 +8,6 @@
 import Foundation
 import OSLog
 
-protocol APIRoute {
-    var method: String { get }
-    var path: String { get set }
-    var query: [String: String] { get set }
-}
-
 class APIService {
     
     /**All fetch calls **/
@@ -21,7 +15,7 @@ class APIService {
     func fetchDiscoverMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: DiscoverMoviesRoute(page: page))
-            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -30,7 +24,7 @@ class APIService {
     func fetchUpcomingMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: UpcomingMoviesRoute(page: page))
-            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -39,7 +33,7 @@ class APIService {
     func fetchDiscoverSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: DiscoverSeriesRoute(page: page))
-            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -48,7 +42,7 @@ class APIService {
     func fetchUpcomingSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: UpcomingSeriesRoute(page: page))
-            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -57,7 +51,7 @@ class APIService {
     func fetchSeriesRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: RecommendedSeriesRoute(id: id, page: page))
-            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -66,7 +60,7 @@ class APIService {
     func fetchSimilarSeries(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SimilarSeriesRoute(id: id, page: page))
-            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -75,7 +69,7 @@ class APIService {
     func fetchMovieRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: RecommendedMoviesRoute(id: id, page: page))
-            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -84,7 +78,7 @@ class APIService {
     func fetchSimilarMovies(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SimilarMoviesRoute(id: id, page: page))
-            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -93,7 +87,7 @@ class APIService {
     func fetchMovieDetails(for id: Int, completion: @escaping (Result<MovieDetails, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: MovieDetailsRoute(id: id))
-            fetch(type: MovieDetails.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -102,7 +96,7 @@ class APIService {
     func searchMedia(for term: String, page: Int, completion: @escaping (Result<PaginatedResponse<SearchMedia>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SearchRoute(term: term, page: page))
-            fetch(type: PaginatedResponse<SearchMedia>.self, urlRequest: urlRequest, completion: completion)
+            fetch(urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
@@ -126,7 +120,7 @@ class APIService {
         return urlRequest
     }
     
-    func fetch<T: Decodable>(type: T.Type, urlRequest: URLRequest, completion: @escaping(Result<T,APIError>) -> Void) {
+    func fetch<T: Decodable>(urlRequest: URLRequest, completion: @escaping(Result<T,APIError>) -> Void) {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "network")
         
         guard urlRequest.url != nil else {
@@ -150,7 +144,7 @@ class APIService {
                 completion(Result.failure(error))
             } else if let data = data {
                 do {
-                    let result = try JSONDecoder().decode(type, from: data)
+                    let result = try JSONDecoder().decode(T.self, from: data)
                     completion(Result.success(result))
                 } catch {
                     let error = APIError.decoding(error as? DecodingError)
