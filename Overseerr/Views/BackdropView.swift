@@ -47,7 +47,7 @@ struct BackdropView: View {
 
 struct BackdropView_Previews: PreviewProvider {
     static var previews: some View {
-        let tmdbImage = TMDBImage(size: .init(width: 400, height: 300), path: Movie.default.backdropPath)
+        let tmdbImage = TMDBImage(size: .init(width: 400, height: 300), path: MovieResult.default.backdropPath)
         BackdropView(isFaded: true, backdropURL: tmdbImage.url)
     }
 }

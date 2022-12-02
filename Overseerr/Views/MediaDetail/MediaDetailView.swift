@@ -12,23 +12,23 @@ struct MovieDetailView: View {
     
     var body: some View {
         ScrollView {
-            MovieDetailHeaderView(viewModel: HeaderViewModel(movie: viewModel.movieDetail))
+            MovieDetailHeaderView(viewModel: HeaderViewModel(movie: viewModel.movie))
             VStack(alignment: .leading, spacing: 12) {
                 Group {
-                    Tagline(title: viewModel.movieDetail.tagline)
+                    Tagline(title: viewModel.movie.tagline)
                     Text("Overview")
                         .foregroundColor(.white)
                         .font(.title)
                         .bold()
-                    Text(viewModel.movieDetail.overview)
+                    Text(viewModel.movie.overview)
                         .foregroundColor(.white)
                 }.padding([.leading, .trailing], 20)
-                CrewOverView(crewList: viewModel.movieDetail.credits.crew)
+                CrewOverView(crewList: viewModel.movie.credits.crew)
                 TrailingButton(title: "View Full Crew", systemImage: "arrow.forward.circle")
                     .padding([.leading, .trailing], 20)
-                CastRow(title: "Cast", castList: viewModel.movieDetail.credits.cast)
-                CategoryRow(viewModel: RecommendationMoviesViewModel(movieId: viewModel.movieDetail.id, loadAllPages: false), categoryName: "Recommendations")
-                CategoryRow(viewModel: SimilarMoviesViewModel(movieId: viewModel.movieDetail.id, loadAllPages: false), categoryName: "Similar Movies")
+                CastRow(title: "Cast", castList: viewModel.movie.credits.cast)
+                CategoryRow(viewModel: RecommendationMoviesViewModel(movieId: viewModel.movie.id, loadAllPages: false), categoryName: "Recommendations")
+                CategoryRow(viewModel: SimilarMoviesViewModel(movieId: viewModel.movie.id, loadAllPages: false), categoryName: "Similar Movies")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,6 +42,6 @@ struct MovieDetailView: View {
 
 struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetailView(viewModel: MovieDetailViewModel(media: Movie.default))
+        MovieDetailView(viewModel: MovieDetailViewModel(movieResult: .default))
     }
 }

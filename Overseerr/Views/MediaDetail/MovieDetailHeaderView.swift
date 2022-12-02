@@ -44,7 +44,7 @@ struct MovieDetailHeaderView: View {
 
 struct MovieDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let movie = MovieDetail.default(
+        let movie = MovieDetails.default(
             customGenres: [
                 .init(id: 123, name: "Science Fiction"),
                 .init(id: 123, name: "Drama"),

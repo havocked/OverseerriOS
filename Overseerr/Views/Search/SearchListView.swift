@@ -20,16 +20,16 @@ struct SearchListView: View {
                         ForEach(searchViewModel.searchResults, id: \.id) { item in
                             VStack {
                                 switch item {
-                                case .movie(let movie):
+                                case .movie(let movieResult):
                                     NavigationLink {
-                                        MovieDetailView(viewModel: MovieDetailViewModel(media: movie))
+                                        MovieDetailView(viewModel: MovieDetailViewModel(movieResult: movieResult))
                                     } label: {
-                                        MediaCard(media: movie, isSelected: false)
+                                        MediaCard(media: movieResult, isSelected: false)
                                     }
-                                case .tv(let series):
-                                    MediaCard(media: series, isSelected: false)
-                                case .person(let person):
-                                    PersonCard(with: person)
+                                case .tv(let tvResult):
+                                    MediaCard(media: tvResult, isSelected: false)
+                                case .person(let personResult):
+                                    PersonCard(with: personResult)
                                 }
                                 Divider()
                                     .onAppear {

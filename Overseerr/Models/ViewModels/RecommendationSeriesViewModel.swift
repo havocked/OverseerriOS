@@ -8,7 +8,7 @@
 import Foundation
 
 class RecommendationSeriesViewModel: MediaViewModel {
-    @Published var results: [any Media] = []
+    @Published var results: [SearchMedia] = []
     @Published var state: FetchState = .good
     
     var page: Int = 1
@@ -43,7 +43,7 @@ class RecommendationSeriesViewModel: MediaViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self?.results.append(contentsOf: data.results)
+                    self?.results.append(contentsOf: data.results.map({ .tv($0) }))
                     self?.page += 1
                     self?.state = (data.totalResults == self?.results.count) ? .good : .loadedAll
                 case .failure(let error):

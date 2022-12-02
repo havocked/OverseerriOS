@@ -8,49 +8,38 @@
 import Foundation
 
 struct Cast: Decodable {
+    let id: Int
     let castId: Int
     let character: String
     let creditId: String
-    let id: Int
+    let gender: Int
     let name: String
     let order: Int
-    let gender: Int
     let profilePath: String?
 }
 
 extension Cast {
     static let `default` = Cast(
+        id: 18918,
         castId: 0,
         character: "Black Adam / Teth Adam",
         creditId: "59e392f39251410b67000225",
-        id: 18918,
+        gender: 2,
         name: "Dwayne Johnson",
         order: 0,
-        gender: 2,
         profilePath: "/cgoy7t5Ve075naBPcewZrc08qGw.jpg"
     )
     
     static func `default`(customCreditId: String) -> Cast {
         return Cast(
+            id: 18918,
             castId: 0,
             character: "Black Adam / Teth Adam",
             creditId: customCreditId,
-            id: 18918,
+            gender: 2,
             name: "Dwayne Johnson",
             order: 0,
-            gender: 2,
             profilePath: "/cgoy7t5Ve075naBPcewZrc08qGw.jpg"
         )
     }
 }
-
-/*{
- "castId": 0,
- "character": "Black Adam / Teth Adam",
- "creditId": "59e392f39251410b67000225",
- "id": 18918,
- "name": "Dwayne Johnson",
- "order": 0,
- "gender": 2,
- "profilePath": "/cgoy7t5Ve075naBPcewZrc08qGw.jpg"
-}*/

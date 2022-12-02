@@ -94,7 +94,7 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
-    private func handleSearchResults(_ data: SearchResult) {
+    private func handleSearchResults(_ data: PaginatedResponse<SearchMedia>) {
         guard data.results.count > 0 else {
             if isLoadingMore {
                 stopLoadingMore()

@@ -21,20 +21,22 @@ struct CategoryRow<Model>: View where Model: MediaViewModel {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 14) {
                         ForEach(viewModel.results, id: \.id) { media in
-                            NavigationLink {
-                                switch media.mediaType {
-                                case .movie:
-                                    MovieDetailView(viewModel: MovieDetailViewModel(media: media))
-                                case .tv:
-                                    EmptyView()
-                                    //SeriesDetailView(viewModel: SeriesDetailViewModel(series: media))
-                                case .person:
-                                    EmptyView()
+                            switch media {
+                            case .movie(let movieResult):
+                                NavigationLink {
+                                    MovieDetailView(viewModel: .init(movieResult: movieResult))
+                                } label: {
+                                    MediaCard(media: movieResult)
                                 }
-                            } label: {
-                                MediaCard(media: media)
+                            case .tv(let tvResult):
+                                NavigationLink {
+                                    
+                                } label: {
+                                    MediaCard(media: tvResult)
+                                }
+                            case .person(let personResult):
+                                EmptyView()
                             }
-                            
                         }
                     }
                     .padding(35)

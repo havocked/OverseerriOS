@@ -78,8 +78,6 @@ extension InsettableShape {
 
 struct PersonCard_Previews: PreviewProvider {
     static var previews: some View {
-        let cast = Cast.default
-        //PersonCard(with: cast)
         PersonCard(with: PersonResult.init(id: 123, name: "Actor name", profilePath: nil, adult: false))
             .frame(width: 300)
     }

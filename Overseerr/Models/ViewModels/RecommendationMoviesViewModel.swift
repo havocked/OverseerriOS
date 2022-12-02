@@ -8,7 +8,7 @@
 import Foundation
 
 class RecommendationMoviesViewModel: MediaViewModel {
-    @Published var results: [any Media] = []
+    @Published var results: [SearchMedia] = []
     @Published var state: FetchState = .good
     
     var page: Int = 1
@@ -45,7 +45,7 @@ class RecommendationMoviesViewModel: MediaViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self?.results.append(contentsOf: data.results)
+                    self?.results.append(contentsOf: data.results.map({ .movie($0) }))
                     self?.page += 1
                     
                     if self?.loadAllPages == true {

@@ -18,91 +18,91 @@ class APIService {
     
     /**All fetch calls **/
     
-    func fetchDiscoverMovies(page: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void) {
+    func fetchDiscoverMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: DiscoverMoviesRoute(page: page))
-            fetch(type: MovieResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchUpcomingMovies(page: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void) {
+    func fetchUpcomingMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: UpcomingMoviesRoute(page: page))
-            fetch(type: MovieResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchDiscoverSeries(page: Int, completion: @escaping (Result<SeriesResult, APIError>) -> Void) {
+    func fetchDiscoverSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: DiscoverSeriesRoute(page: page))
-            fetch(type: SeriesResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchUpcomingSeries(page: Int, completion: @escaping (Result<SeriesResult, APIError>) -> Void) {
+    func fetchUpcomingSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: UpcomingSeriesRoute(page: page))
-            fetch(type: SeriesResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchSeriesRecommendations(for id: Int, page: Int, completion: @escaping (Result<SeriesResult, APIError>) -> Void) {
+    func fetchSeriesRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: RecommendedSeriesRoute(id: id, page: page))
-            fetch(type: SeriesResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchSimilarSeries(for id: Int, page: Int, completion: @escaping (Result<SeriesResult, APIError>) -> Void) {
+    func fetchSimilarSeries(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SimilarSeriesRoute(id: id, page: page))
-            fetch(type: SeriesResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<TVResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchMovieRecommendations(for id: Int, page: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void) {
+    func fetchMovieRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: RecommendedMoviesRoute(id: id, page: page))
-            fetch(type: MovieResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchSimilarMovies(for id: Int, page: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void) {
+    func fetchSimilarMovies(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SimilarMoviesRoute(id: id, page: page))
-            fetch(type: MovieResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<MovieResult>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func fetchMoviesDetails(for id: Int, completion: @escaping (Result<MovieDetail, APIError>) -> Void) {
+    func fetchMovieDetails(for id: Int, completion: @escaping (Result<MovieDetails, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: MovieDetailsRoute(id: id))
-            fetch(type: MovieDetail.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: MovieDetails.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }
     }
     
-    func searchMedia(for term: String, page: Int, completion: @escaping (Result<SearchResult, APIError>) -> Void) {
+    func searchMedia(for term: String, page: Int, completion: @escaping (Result<PaginatedResponse<SearchMedia>, APIError>) -> Void) {
         do {
             let urlRequest = try build(for: SearchRoute(term: term, page: page))
-            fetch(type: SearchResult.self, urlRequest: urlRequest, completion: completion)
+            fetch(type: PaginatedResponse<SearchMedia>.self, urlRequest: urlRequest, completion: completion)
         } catch {
             completion(.failure(.badURL))
         }

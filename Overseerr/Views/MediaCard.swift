@@ -66,6 +66,6 @@ struct MediaCard: View {
 
 struct MediaCard_Previews: PreviewProvider {
     static var previews: some View {
-        MediaCard(media: Movie.default)
+        MediaCard(media: MovieResult.default)
     }
 }

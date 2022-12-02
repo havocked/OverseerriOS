@@ -8,9 +8,9 @@
 import Foundation
 
 class HeaderViewModel {
-    private let movie: MovieDetail
+    private let movie: MovieDetails
     
-    init(movie: MovieDetail) {
+    init(movie: MovieDetails) {
         self.movie = movie
     }
     

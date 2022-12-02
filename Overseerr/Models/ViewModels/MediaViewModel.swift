@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MediaViewModel: ObservableObject {
-    var results: [any Media] { get set }
+    var results: [SearchMedia] { get set }
     var state: FetchState { get set }
     
     func clear()

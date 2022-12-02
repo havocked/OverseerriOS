@@ -19,8 +19,8 @@ enum SearchMedia: Decodable, Identifiable {
         }
     }
     
-    case movie(Movie)
-    case tv(Series)
+    case movie(MovieResult)
+    case tv(TVResult)
     case person(PersonResult)
     
     enum CodingKeys: CodingKey {
@@ -36,10 +36,10 @@ enum SearchMedia: Decodable, Identifiable {
             let data = try PersonResult.init(from: decoder)
             self = .person(data)
         case .movie:
-            let data = try Movie.init(from: decoder)
+            let data = try MovieResult.init(from: decoder)
             self = .movie(data)
         case .tv:
-            let data = try Series.init(from: decoder)
+            let data = try TVResult.init(from: decoder)
             self = .tv(data)
         }
     }

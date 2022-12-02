@@ -7,35 +7,35 @@
 
 import Foundation
 
-struct Crew: Decodable, Identifiable, Equatable {
-    let creditId: String
-    let department: String
+struct Crew: Decodable, Identifiable {
     let id: Int
-    let job: String
-    let name: String
+    let creditId: String
     let gender: Int
+    let name: String
+    let job: String
+    let department: String
     let profilePath: String?
 }
 
 extension Crew {
     static let `default` = Crew(
-        creditId: "1234",
-        department: "Directing",
         id: 12345,
-        job: "Director",
-        name: "Aki Kaurismaki",
+        creditId: "1234",
         gender: 2,
+        name: "Director",
+        job: "Aki Kaurismaki",
+        department: "Directing",
         profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"
     )
     
     static func `default`(customName: String = "John Doe", customJob: String = "Director", customId: String) -> Crew {
         return Crew(
-            creditId: customId,
-            department: "Directing",
             id: 12345,
-            job: customJob,
-            name: customName,
+            creditId: customId,
             gender: 2,
+            name: customJob,
+            job: customName,
+            department: "Directing",
             profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"
         )
     }

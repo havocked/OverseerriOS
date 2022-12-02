@@ -8,13 +8,13 @@
 import Foundation
 
 class MovieDetailViewModel: ObservableObject {
-    @Published var movieDetail: MovieDetail
+    @Published var movie: MovieDetails
     @Published var state: FetchState = .good
     
     let service = APIService()
     
-    init(media: any Media) {
-        self.movieDetail = MovieDetail(media: media)
+    init(movieResult: MovieResult) {
+        self.movie = MovieDetails(movieResult: movieResult)
     }
  
     func fetchMovieDetails() {
@@ -24,11 +24,11 @@ class MovieDetailViewModel: ObservableObject {
         
         state = .isLoading
         
-        service.fetchMoviesDetails(for: movieDetail.id) { [weak self] result in
+        service.fetchMovieDetails(for: movie.id) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self?.movieDetail = data
+                    self?.movie = data
                     self?.state = .loadedAll
                 case .failure(let error):
                     self?.state = .error("Could not load: \(error.localizedDescription)")
