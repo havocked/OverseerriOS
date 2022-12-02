@@ -88,3 +88,10 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# Other files
+#
+# This is temporary gitignore rule in order to use an APIKey and should not ever be used a solution for a
+# production app.
+
+Overseerr/OverseerrSettings/OverseerrSettings.plist
