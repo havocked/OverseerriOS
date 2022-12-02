@@ -13,95 +13,44 @@ class APIService {
     /**All fetch calls **/
     
     func fetchDiscoverMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: DiscoverMoviesRoute(page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: DiscoverMoviesRoute(page: page), completion: completion)
     }
     
     func fetchUpcomingMovies(page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: UpcomingMoviesRoute(page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
-    }
-    
-    func fetchDiscoverSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: DiscoverSeriesRoute(page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
-    }
-    
-    func fetchUpcomingSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: UpcomingSeriesRoute(page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
-    }
-    
-    func fetchSeriesRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: RecommendedSeriesRoute(id: id, page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
-    }
-    
-    func fetchSimilarSeries(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: SimilarSeriesRoute(id: id, page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: UpcomingMoviesRoute(page: page), completion: completion)
     }
     
     func fetchMovieRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: RecommendedMoviesRoute(id: id, page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: RecommendedMoviesRoute(id: id, page: page), completion: completion)
     }
     
     func fetchSimilarMovies(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<MovieResult>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: SimilarMoviesRoute(id: id, page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: SimilarMoviesRoute(id: id, page: page), completion: completion)
+    }
+    
+    func fetchDiscoverSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
+        fetch(route: DiscoverSeriesRoute(page: page), completion: completion)
+    }
+    
+    func fetchUpcomingSeries(page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
+        fetch(route: UpcomingSeriesRoute(page: page), completion: completion)
+    }
+    
+    func fetchSeriesRecommendations(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
+        fetch(route: RecommendedSeriesRoute(id: id, page: page), completion: completion)
+    }
+    
+    func fetchSimilarSeries(for id: Int, page: Int, completion: @escaping (Result<PaginatedResponse<TVResult>, APIError>) -> Void) {
+        fetch(route: SimilarSeriesRoute(id: id, page: page), completion: completion)
     }
     
     func fetchMovieDetails(for id: Int, completion: @escaping (Result<MovieDetails, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: MovieDetailsRoute(id: id))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: MovieDetailsRoute(id: id), completion: completion)
     }
     
     func searchMedia(for term: String, page: Int, completion: @escaping (Result<PaginatedResponse<SearchMedia>, APIError>) -> Void) {
-        do {
-            let urlRequest = try build(for: SearchRoute(term: term, page: page))
-            fetch(urlRequest: urlRequest, completion: completion)
-        } catch {
-            completion(.failure(.badURL))
-        }
+        fetch(route: SearchRoute(term: term, page: page), completion: completion)
     }
-    
     
     /** Basic implementation **/
     
@@ -118,6 +67,15 @@ class APIService {
         urlRequest.setValue(OverseerrSettings.shared.apiKey, forHTTPHeaderField: "X-Api-Key")
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         return urlRequest
+    }
+    
+    func fetch<T: Decodable>(route: APIRoute, completion: @escaping(Result<T, APIError>) -> Void) {
+        do {
+            let urlRequest = try build(for: route)
+            fetch(urlRequest: urlRequest, completion: completion)
+        } catch {
+            completion(.failure(.badURL))
+        }
     }
     
     func fetch<T: Decodable>(urlRequest: URLRequest, completion: @escaping(Result<T,APIError>) -> Void) {

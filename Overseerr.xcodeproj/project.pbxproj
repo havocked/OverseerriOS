@@ -334,10 +334,10 @@
 			children = (
 				837BFFF2293A4C680047D36B /* PaginatedResponse.swift */,
 				832057CB2930E8E2007192B0 /* FetchState.swift */,
+				837BFFFC293A62D30047D36B /* APIRoute.swift */,
 				832057C92930E815007192B0 /* APIError.swift */,
 				832057C52930E718007192B0 /* APIService.swift */,
 				830B64A02936004900CB9B1E /* Routes */,
-				837BFFFC293A62D30047D36B /* APIRoute.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
