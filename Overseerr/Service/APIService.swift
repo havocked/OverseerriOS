@@ -121,7 +121,7 @@ class APIService {
             throw APIError.badURL
         }
         var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("MTY2ODc3ODYwODAwM2E4YmY5NDY5LTBmMGItNGQ2Yy1iMmRkLTI5ZGU1ZGRjOWUzNSk=", forHTTPHeaderField: "X-Api-Key")
+        urlRequest.setValue(OverseerrSettings.shared.apiKey, forHTTPHeaderField: "X-Api-Key")
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         return urlRequest
     }
