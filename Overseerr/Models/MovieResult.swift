@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieResult: Decodable, Media {
+struct MovieResult: Decodable {
     let id: Int
     let mediaType: MediaType
     let popularity: Double
@@ -43,7 +43,7 @@ extension MovieResult {
         releaseDate: "2022-11-09",
         adult: false,
         video: false,
-        mediaInfo: .init(status: .available)
+        mediaInfo: .init(mediaType: .movie, status: .available)
     )
 }
 

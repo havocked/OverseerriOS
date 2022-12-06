@@ -44,14 +44,13 @@ struct MovieDetailHeaderView: View {
 
 struct MovieDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let movie = MovieDetails.default(
-            customGenres: [
-                .init(id: 123, name: "Science Fiction"),
-                .init(id: 123, name: "Drama"),
-                .init(id: 123, name: "Thriller")
-            ]
+        let viewModel = HeaderViewModel(
+            title: "This is a title",
+            runtime: 120,
+            genres: [.init(id: 1, name: "Horror")],
+            backdropPath: "/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg",
+            posterPath: "/jeGtaMwGxPmQN5xM4ClnwPQcNQz.jpg"
         )
-        let viewModel = HeaderViewModel(movie: movie)
         return MovieDetailHeaderView(viewModel: viewModel)
     }
 }

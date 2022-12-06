@@ -48,6 +48,10 @@ class APIService {
         fetch(route: MovieDetailsRoute(id: id), completion: completion)
     }
     
+    func fetchTVDetails(for id: Int, completion: @escaping (Result<TVDetails, APIError>) -> Void) {
+        fetch(route: TVDetailsRoute(id: id), completion: completion)
+    }
+    
     func searchMedia(for term: String, page: Int, completion: @escaping (Result<PaginatedResponse<SearchMedia>, APIError>) -> Void) {
         fetch(route: SearchRoute(term: term, page: page), completion: completion)
     }

@@ -8,12 +8,6 @@
 import Foundation
 
 struct MovieDetails: Decodable {
-    
-    struct Genre: Decodable {
-        let id: Int
-        let name: String
-    }
-    
     var id: Int
     var releaseDate: String?
     var title: String
@@ -43,7 +37,7 @@ struct MovieDetails: Decodable {
 }
 
 extension MovieDetails {
-    static func `default`(customGenres: [MovieDetails.Genre] = [], runtime: Int? = nil) -> MovieDetails {
+    static func `default`(customGenres: [Genre] = [], runtime: Int? = nil) -> MovieDetails {
         let movieDetail = MovieDetails(movieResult: MovieResult.default)
         return movieDetail
     }

@@ -12,7 +12,7 @@ struct MovieDetailView: View {
     
     var body: some View {
         ScrollView {
-            MovieDetailHeaderView(viewModel: HeaderViewModel(movie: viewModel.movie))
+            MovieDetailHeaderView(viewModel: HeaderViewModel(title: viewModel.movie.title, runtime: viewModel.movie.runtime, genres: viewModel.movie.genres, backdropPath: viewModel.movie.backdropPath, posterPath: viewModel.movie.posterPath))
             VStack(alignment: .leading, spacing: 12) {
                 Group {
                     Tagline(title: viewModel.movie.tagline)

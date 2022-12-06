@@ -22,7 +22,7 @@ struct BackdropView: View {
                         .scaledToFill()
                         .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                         .offset(y: geometry.frame(in: .global).minY/9)
-                        .blur(radius: -geometry.frame(in: .global).minY)
+                        .blur(radius: -0.1 * geometry.frame(in: .global).minY)
                         .clipped()
                         .navigationTitle("")
                 } else {

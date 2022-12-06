@@ -24,10 +24,10 @@ struct SearchListView: View {
                                     NavigationLink {
                                         MovieDetailView(viewModel: MovieDetailViewModel(movieResult: movieResult))
                                     } label: {
-                                        MediaCard(media: movieResult, isSelected: false)
+                                        MovieCard(movie: movieResult)
                                     }
                                 case .tv(let tvResult):
-                                    MediaCard(media: tvResult, isSelected: false)
+                                    TVCard(tv: tvResult)
                                 case .person(let personResult):
                                     PersonCard(with: personResult)
                                 }

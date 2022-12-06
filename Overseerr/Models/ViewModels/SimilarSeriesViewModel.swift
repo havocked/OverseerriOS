@@ -12,12 +12,14 @@ class SimilarSeriesViewModel: MediaViewModel {
     @Published var state: FetchState = .good
     
     var page: Int = 1
+    let loadAllPages: Bool
     var seriesId: Int
     
     let service = APIService()
     
-    init(seriesId: Int) {
+    init(seriesId: Int, loadAllPages: Bool = true) {
         self.seriesId = seriesId
+        self.loadAllPages = loadAllPages
         self.clear()
         self.fetchMedias()
     }
@@ -45,7 +47,12 @@ class SimilarSeriesViewModel: MediaViewModel {
                 case .success(let data):
                     self?.results.append(contentsOf: data.results.map({ .tv($0) }))
                     self?.page += 1
-                    self?.state = (data.totalResults == self?.results.count) ? .good : .loadedAll
+                    
+                    if self?.loadAllPages == true {
+                        self?.state = (data.totalResults == self?.results.count) ? .good : .loadedAll
+                    } else {
+                        self?.state = .loadedAll
+                    }
                 case .failure(let error):
                     self?.state = .error("Could not load: \(error.localizedDescription)")
                 }

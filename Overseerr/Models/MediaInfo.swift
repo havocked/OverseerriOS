@@ -8,5 +8,6 @@
 import Foundation
 
 struct MediaInfo: Decodable, Equatable {
+    let mediaType: MediaType
     let status: MediaStatus
 }

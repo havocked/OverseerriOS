@@ -8,32 +8,37 @@
 import Foundation
 
 class HeaderViewModel {
-    private let movie: MovieDetails
     
-    init(movie: MovieDetails) {
-        self.movie = movie
-    }
+    let title: String
+    private let runtime: Int?
+    private let genres: [Genre]
+    private let backdropPath: String?
+    private let posterPath: String?
     
-    var title: String {
-        return movie.title
+    init(title: String, runtime: Int?, genres: [Genre], backdropPath: String?, posterPath: String?) {
+        self.title = title
+        self.runtime = runtime
+        self.genres = genres
+        self.backdropPath = backdropPath
+        self.posterPath = posterPath
     }
     
     var informations: String {
         var informations: [String] = []
         informations.append("PG-13")
-        if let runtime = movie.runtime {
+        if let runtime = runtime {
             informations.append("\(runtime) minutes")
         }
-        let genres = movie.genres.map({ $0.name }).joined(separator: ", ")
+        let genres = genres.map({ $0.name }).joined(separator: ", ")
         informations.append(genres)
         return informations.joined(separator: " | ")
     }
     
     var backdropURL: URL? {
-        return TMDBImage(size: .init(width: 400, height: 300), path: movie.backdropPath).url
+        return TMDBImage(size: .init(width: 400, height: 300), path: backdropPath).url
     }
     
     var posterURL: URL? {
-        return TMDBImage(path: movie.posterPath).url
+        return TMDBImage(path: posterPath).url
     }
 }

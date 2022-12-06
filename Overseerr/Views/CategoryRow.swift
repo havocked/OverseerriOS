@@ -26,13 +26,13 @@ struct CategoryRow<Model>: View where Model: MediaViewModel {
                                 NavigationLink {
                                     MovieDetailView(viewModel: .init(movieResult: movieResult))
                                 } label: {
-                                    MediaCard(media: movieResult)
+                                    MovieCard(movie: movieResult)
                                 }
                             case .tv(let tvResult):
                                 NavigationLink {
-                                    
+                                    TVDetailView(viewModel: .init(tvResult: tvResult))
                                 } label: {
-                                    MediaCard(media: tvResult)
+                                    TVCard(tv: tvResult)
                                 }
                             case .person(let personResult):
                                 EmptyView()
@@ -71,9 +71,11 @@ struct CategoryRow<Model>: View where Model: MediaViewModel {
 
 struct CategoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRow(
-            viewModel: UpcomingMoviesViewModel(),
-            categoryName: "Trending"
-        )
+        List {
+            CategoryRow(
+                viewModel: UpcomingMoviesViewModel(),
+                categoryName: "Trending"
+            )
+        }
     }
 }

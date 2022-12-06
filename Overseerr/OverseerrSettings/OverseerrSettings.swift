@@ -10,6 +10,7 @@ import Foundation
 struct OverseerrSettings: Decodable {
     static let shared = OverseerrSettings()
     
+    let baseUrl: String
     let apiKey: String
     
     private init() {
