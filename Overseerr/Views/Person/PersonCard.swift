@@ -32,16 +32,7 @@ struct PersonCard: View {
             
             VStack {
                 Spacer()
-                Circle()
-                    .fill(.clear)
-                    .aspectRatio(0.6, contentMode: .fit)
-                    .background {
-                        WebImage(url: url)
-                            .resizable()
-                            .placeholder(.init(systemName: "person.fill"))
-                            .scaledToFill()
-                            .clipShape(Circle())
-                    }
+                RoundImageView(url: url)
                 Text(title)
                     .foregroundColor(.white)
                     .bold()
@@ -78,7 +69,7 @@ extension InsettableShape {
 
 struct PersonCard_Previews: PreviewProvider {
     static var previews: some View {
-        PersonCard(with: PersonResult.init(id: 123, name: "Actor name", profilePath: nil, adult: false))
+        PersonCard(with: PersonResult.init(id: 123, name: "Actor name", profilePath: "/d0ZWYNTGscHKFbjkA5Lrg4AOjnX.jpg", adult: false, knownFor: []))
             .frame(width: 300)
     }
 }

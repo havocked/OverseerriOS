@@ -12,6 +12,11 @@ struct PersonResult: Decodable {
     let name: String
     let profilePath: String?
     let adult: Bool
+    let knownFor: [SearchMedia]
+    
+    var backdropPath: String? {
+        knownFor.compactMap({ $0.backdropPath }).first
+    }
 }
 
 extension PersonResult {
@@ -19,6 +24,7 @@ extension PersonResult {
         id: 18918,
         name: "Dwayne Johnson",
         profilePath: "/cgoy7t5Ve075naBPcewZrc08qGw.jpg",
-        adult: false
+        adult: false,
+        knownFor: [.movie(.default), .tv(.default)]
     )
 }

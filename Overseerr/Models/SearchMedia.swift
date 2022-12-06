@@ -19,6 +19,17 @@ enum SearchMedia: Decodable, Identifiable {
         }
     }
     
+    var backdropPath: String? {
+        switch self {
+        case .movie(let movie):
+            return movie.backdropPath
+        case .tv(let tv):
+            return tv.backdropPath
+        case .person:
+            return nil
+        }
+    }
+    
     case movie(MovieResult)
     case tv(TVResult)
     case person(PersonResult)

@@ -74,7 +74,7 @@ struct SearchListView_Previews: PreviewProvider {
     
     static let searchViewModel: SearchViewModel = {
         let viewModel = SearchViewModel()
-        viewModel.searchResults = [.movie(.default), .tv(.default), .person(.init(id: 123333, name: "This is a profile", profilePath: nil, adult: false))]
+        viewModel.searchResults = [.movie(.default), .tv(.default), .person(.init(id: 123333, name: "This is a profile", profilePath: nil, adult: false, knownFor: []))]
         return viewModel
     }()
     
