@@ -14,7 +14,7 @@ final class CreditHelpersTests: XCTestCase {
             .default(customName: "Yolo Producer", customJob: "Producer", customId: "12346"),
             .default(customName: "Yolo Writer", customJob: "Writer", customId: "12347"),
             .default(customName: "Yolo Photo", customJob: "Director of Photography", customId: "12234"),
-            .default(customName: "Yolo Edit", customJob: "Editor", customId: "1234"),
+            .default(customName: "Yolo Edit", customJob: "Editor", customId: "12349"),
             .default(customName: "Yolo ProducDesignor", customJob: "Production Design", customId: "122234"),
             .default(customName: "Yolo Custom", customJob: "Costume Design", customId: "1233334"),
             .default(customName: "Yolo ProdMan", customJob: "Production Manager", customId: "1277734"),
@@ -33,10 +33,10 @@ final class CreditHelpersTests: XCTestCase {
         
         let testList = crewList.sortCrewPriority()
         let verifiedList = [
-            Crew(creditId: "12345", department: "Directing", id: 12345, job: "Director", name: "Yolo Director", gender: 2, profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
-            Crew(creditId: "12347", department: "Directing", id: 12345, job: "Writer", name: "Yolo Writer", gender: 2, profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
-            Crew(creditId: "1234", department: "Directing", id: 12345, job: "Editor", name: "Yolo Edit", gender: 2, profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
-            Crew(creditId: "12346", department: "Directing", id: 12345, job: "Producer", name: "Yolo Producer", gender: 2, profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg")
+            Crew(id: 12345, creditId: "12345", gender: 2, name: "Yolo Director", job: "Director", department: "Directing", profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
+            Crew(id: 12345, creditId: "12347", gender: 2, name: "Yolo Writer", job: "Writer", department: "Directing", profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
+            Crew(id: 12345, creditId: "12349", gender: 2, name: "Yolo Edit", job: "Editor", department: "Directing", profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"),
+            Crew(id: 12345, creditId: "12346", gender: 2, name: "Yolo Producer", job: "Producer", department: "Directing", profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg")
         ]
         XCTAssertEqual(testList, verifiedList)
     }

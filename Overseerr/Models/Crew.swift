@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Crew: Decodable, Identifiable {
+struct Crew: Decodable, Identifiable, Equatable {
     let id: Int
     let creditId: String
     let gender: Int
@@ -33,8 +33,8 @@ extension Crew {
             id: 12345,
             creditId: customId,
             gender: 2,
-            name: customJob,
-            job: customName,
+            name: customName,
+            job: customJob,
             department: "Directing",
             profilePath: "/kiJErWEOv4Ew7aHOGKg4ljsmppZ.jpg"
         )

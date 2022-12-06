@@ -24,8 +24,6 @@ struct TVDetailView: View {
                         .foregroundColor(.white)
                 }.padding([.leading, .trailing], 20)
                 CrewOverView(crewList: viewModel.tv.credits.crew)
-                TrailingButton(title: "View Full Crew", systemImage: "arrow.forward.circle")
-                    .padding([.leading, .trailing], 20)
                 CastRow(title: "Cast", castList: viewModel.tv.credits.cast)
                 CategoryRow(viewModel: RecommendationSeriesViewModel(seriesId: viewModel.tv.id, loadAllPages: false), categoryName: "Recommendations")
                 CategoryRow(viewModel: SimilarSeriesViewModel(seriesId: viewModel.tv.id, loadAllPages: false), categoryName: "Similar Movies")

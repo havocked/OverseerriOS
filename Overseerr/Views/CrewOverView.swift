@@ -18,12 +18,15 @@ struct CrewOverView: View {
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
-            ForEach(shortedList, id: \.creditId) { crew in
-                CrewView(crew: crew)
+        VStack {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
+                ForEach(shortedList, id: \.creditId) { crew in
+                    CrewView(crew: crew)
+                }
             }
-        }
-        .padding()
+            TrailingButton(title: "View Full Crew", systemImage: "arrow.forward.circle")
+                .padding()
+        }.padding()
     }
 }
 

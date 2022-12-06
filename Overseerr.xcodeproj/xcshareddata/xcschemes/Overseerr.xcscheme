@@ -39,17 +39,6 @@
                ReferencedContainer = "container:Overseerr.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8320579D2930BBC5007192B0"
-               BuildableName = "OverseerrUITests.xctest"
-               BlueprintName = "OverseerrUITests"
-               ReferencedContainer = "container:Overseerr.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
