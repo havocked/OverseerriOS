@@ -9,7 +9,7 @@ import Foundation
 
 struct Cast: Decodable {
     let id: Int
-    let castId: Int
+    let castId: Int?
     let character: String
     let creditId: String
     let gender: Int

@@ -9,13 +9,13 @@ import Foundation
 
 struct Season: Decodable {
     let id: Int
-    let airDate: String
+    let airDate: String?
     let episodeCount: Int
     let name: String
     let overview: String
-    let posterPath: String
+    let posterPath: String?
     let seasonNumber: Int
-    let episodes: [Episode]
+    let episodes: [Episode]?
 }
 
 struct Episode: Decodable {
@@ -27,9 +27,9 @@ struct Episode: Decodable {
     let productionCode: String
     let seasonNumber: Int
     let showId: Int
-    let stillPath: String
+    let stillPath: String?
     let voteAverage: Double
-    let voteCount: Int
+    let voteCount: Int?
     
     static let `default` = Episode(
         id: 1,
@@ -40,7 +40,7 @@ struct Episode: Decodable {
         productionCode: "ABC123",
         seasonNumber: 1,
         showId: 1,
-        stillPath: "some/path",
+        stillPath: "/vlEEQeTNLV9qBIe293AliKWykH5.jpg",
         voteAverage: 7.5,
         voteCount: 10
     )
@@ -50,7 +50,7 @@ struct CreatedBy: Decodable {
     let id: Int
     let name: String
     let gender: Int
-    let profilePath: String
+    let profile_path: String?
 }
 
 struct ContentRatings: Decodable {
@@ -64,7 +64,7 @@ struct Rating: Decodable {
 
 struct ProductionCompany: Decodable {
     let id: Int
-    let logoPath: String
+    let logoPath: String?
     let originCountry: String
     let name: String
 }
@@ -76,7 +76,7 @@ struct Country: Decodable {
 
 struct Network: Decodable {
     let id: Int
-    let logoPath: String
+    let logoPath: String?
     let originCountry: String
     let name: String
 }
@@ -100,18 +100,18 @@ struct TVDetails: Decodable {
     let homepage: String
     let inProduction: Bool
     let languages: [String]
-    let lastAirDate: String
-    let lastEpisodeToAir: Episode
+    let lastAirDate: String?
+    let lastEpisodeToAir: Episode?
     let name: String
-    let nextEpisodeToAir: Episode
+    let nextEpisodeToAir: Episode?
     let networks: [Network]
     let numberOfEpisodes: Int
-    let numberOfSeason: Int
+    let numberOfSeasons: Int
     let originCountry: [String]
     let originalLanguage: String
     let originalName: String
     let overview: String
-    let popularity: Int
+    let popularity: Double
     let productionCompanies: [ProductionCompany]
     let productionCountries: [Country]
     let spokenLanguages: [Language]
@@ -142,12 +142,12 @@ struct TVDetails: Decodable {
         nextEpisodeToAir: Episode,
         networks: [Network],
         numberOfEpisodes: Int,
-        numberOfSeason: Int,
+        numberOfSeasons: Int,
         originCountry: [String],
         originalLanguage: String,
         originalName: String,
         overview: String,
-        popularity: Int,
+        popularity: Double,
         productionCompanies: [ProductionCompany],
         productionCountries: [Country],
         spokenLanguages: [Language],
@@ -179,7 +179,7 @@ struct TVDetails: Decodable {
         self.nextEpisodeToAir = nextEpisodeToAir
         self.networks = networks
         self.numberOfEpisodes = numberOfEpisodes
-        self.numberOfSeason = numberOfSeason
+        self.numberOfSeasons = numberOfSeasons
         self.originCountry = originCountry
         self.originalLanguage = originalLanguage
         self.originalName = originalName
@@ -218,11 +218,11 @@ struct TVDetails: Decodable {
         self.nextEpisodeToAir = .default
         self.networks = []
         self.numberOfEpisodes = 0
-        self.numberOfSeason = 0
+        self.numberOfSeasons = 0
         self.originCountry = []
         self.originalLanguage = ""
         self.originalName = ""
-        self.popularity = 0
+        self.popularity = 0.0
         self.productionCompanies = []
         self.productionCountries = []
         self.spokenLanguages = []

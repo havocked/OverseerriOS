@@ -27,7 +27,11 @@ struct SearchListView: View {
                                         MovieCard(movie: movieResult)
                                     }
                                 case .tv(let tvResult):
-                                    TVCard(tv: tvResult)
+                                    NavigationLink {
+                                        TVDetailView(viewModel: TVDetailViewModel(tvResult: tvResult))
+                                    } label: {
+                                        TVCard(tv: tvResult)
+                                    }
                                 case .person(let personResult):
                                     PersonCard(with: personResult)
                                 }
