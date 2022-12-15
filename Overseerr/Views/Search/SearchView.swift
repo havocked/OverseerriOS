@@ -16,18 +16,7 @@ struct SearchView: View {
                 SearchBar(text: $searchViewModel.searchTerm) {
                     searchViewModel.search()
                 }
-                ZStack {
-                    SearchListView(searchViewModel: searchViewModel)
-                    
-                    if searchViewModel.isFetchingInitialResults {
-                        ProgressView()
-                    }
-                    
-                    if searchViewModel.noResultsFound {
-                        Text("No results found.")
-                            .bold()
-                    }
-                }
+                SearchListView(searchViewModel: searchViewModel)
             }.alert(isPresented: $searchViewModel.showErrorAlert) {
                 let message = searchViewModel.errorMessage
                 searchViewModel.errorMessage = nil

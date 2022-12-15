@@ -26,25 +26,29 @@ struct PersonCard: View {
     }
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.grayBackground, strokeBorder: .gray, lineWidth: 1)
-            
-            VStack {
-                Spacer()
-                RoundImageView(url: url)
-                Text(title)
-                    .foregroundColor(.white)
-                    .bold()
-                    .font(.caption)
-                    .padding([.leading, .trailing], 4)
-                if let subtitle = self.subtitle {
-                    Text(subtitle)
+        GeometryReader { proxy in
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.grayBackground, strokeBorder: .gray, lineWidth: 1)
+                
+                VStack {
+                    Spacer()
+                    
+                    RoundImageView(url: url)
+                        .frame(width: proxy.size.width / 1.3)
+                    Text(title)
                         .foregroundColor(.white)
-                        .font(.caption2)
-                        .padding([.leading, .trailing], 4)
+                        .bold()
+                        .font(.caption)
+                        .padding([.leading, .trailing, .top], 4)
+                    if let subtitle = self.subtitle {
+                        Text(subtitle)
+                            .foregroundColor(.white)
+                            .font(.caption2)
+                            .padding([.leading, .trailing], 4)
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .aspectRatio(2/3, contentMode: .fit)

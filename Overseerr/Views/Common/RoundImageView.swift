@@ -6,20 +6,19 @@
 //
 
 import SwiftUI
+import SDWebImage
 import SDWebImageSwiftUI
 
 struct RoundImageView: View {
-    
     let url: URL?
     
     var body: some View {
         Circle()
-            .fill(.clear)
-            .aspectRatio(0.6, contentMode: .fit)
-            .background {
+            .fill(.red)
+            .aspectRatio(contentMode: .fit)
+            .overlay {
                 WebImage(url: url)
                     .resizable()
-                    .placeholder(.init(systemName: "person.fill"))
                     .scaledToFill()
                     .clipShape(Circle())
             }

@@ -16,7 +16,7 @@ class MovieDetailViewModel: ObservableObject {
     init(movieResult: MovieResult) {
         self.movie = MovieDetails(movieResult: movieResult)
     }
- 
+    
     func fetchMovieDetails() {
         guard state == .good else {
             return
@@ -25,14 +25,12 @@ class MovieDetailViewModel: ObservableObject {
         state = .isLoading
         
         service.fetchMovieDetails(for: movie.id) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self?.movie = data
-                    self?.state = .loadedAll
-                case .failure(let error):
-                    self?.state = .error("Could not load: \(error.localizedDescription)")
-                }
+            switch result {
+            case .success(let data):
+                self?.movie = data
+                self?.state = .loadedAll
+            case .failure(let error):
+                self?.state = .error("Could not load: \(error.localizedDescription)")
             }
         }
     }

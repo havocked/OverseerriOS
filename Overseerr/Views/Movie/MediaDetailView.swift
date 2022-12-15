@@ -11,11 +11,11 @@ struct MovieDetailView: View {
     @ObservedObject var viewModel: MovieDetailViewModel
     
     var body: some View {
-        ScrollView {
-            MovieDetailHeaderView(viewModel: HeaderViewModel(title: viewModel.movie.title, runtime: viewModel.movie.runtime, genres: viewModel.movie.genres, backdropPath: viewModel.movie.backdropPath, posterPath: viewModel.movie.posterPath))
+        ScrollViewOffset {
+            MovieDetailHeaderView(viewModel: HeaderViewModel(viewModel: viewModel))
             VStack(alignment: .leading, spacing: 12) {
                 Group {
-                    Tagline(title: viewModel.movie.tagline)
+                    Tagline(title: viewModel.movie.tagline, isRedacted: viewModel.state == .isLoading)
                     Text("Overview")
                         .foregroundColor(.white)
                         .font(.title)
@@ -24,10 +24,12 @@ struct MovieDetailView: View {
                         .foregroundColor(.white)
                 }.padding([.leading, .trailing])
                 CrewOverView(crewList: viewModel.movie.credits.crew)
-                CastRow(title: "Cast", castList: viewModel.movie.credits.cast)
+                CategoryRow(viewModel: CastListViewModel(castList: viewModel.movie.credits.cast), categoryName: "Cast")
                 CategoryRow(viewModel: RecommendationMoviesViewModel(movieId: viewModel.movie.id, loadAllPages: false), categoryName: "Recommendations")
                 CategoryRow(viewModel: SimilarMoviesViewModel(movieId: viewModel.movie.id, loadAllPages: false), categoryName: "Similar Movies")
             }
+        } onOffsetChange: { offset in
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea(.all, edges: .top)

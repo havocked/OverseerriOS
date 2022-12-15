@@ -7,42 +7,38 @@
 
 import SwiftUI
 
-struct CastRow: View {
-    var title: String
-    var castList: [Cast]
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.headline)
-                .bold()
-                .foregroundColor(.white)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 14) {
-                    ForEach(castList, id: \.creditId) { cast in
-                        PersonCard(with: cast)
-                    }
-                }
-                .padding(35)
-            }
-            .frame(height: 300)
-            .padding(-35)
-        }
-        .padding(20)
-        .background(Color.mainBackground)
-    }
-}
 
-struct CastRow_Previews: PreviewProvider {
-    static var previews: some View {
-        CastRow(
-            title: "Cast",
-            castList: [
-                .default,
-                .default(customCreditId: "123"),
-                .default(customCreditId: "345"),
-                .default(customCreditId: "6453")
-            ]
-        )
+class CastListViewModel: MediaViewModel {
+    @Published var results: [SearchMedia] = []
+    @Published var state: FetchState = .good
+    
+    var page: Int = 1
+    let loadAllPages: Bool
+    
+    let service = APIService()
+    
+    init(castList: [Cast], loadAllPages: Bool = true) {
+        self.loadAllPages = loadAllPages
+        self.clear()
+        self.fetchMedias()
+        
+        results.append(contentsOf: castList.map({ .person(.init(id: $0.id, name: $0.name, profilePath: $0.profilePath, adult: false, knownFor: [])) }))
     }
+    
+    func clear() {
+        state = .good
+        results = []
+        page = 1
+    }
+    
+    func loadMore() {
+        fetchMedias()
+    }
+    
+    func fetchMedias() {
+        guard state == .good else {
+            return
+        }
+    }
+    
 }

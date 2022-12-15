@@ -12,10 +12,10 @@ struct TVDetailView: View {
     
     var body: some View {
         ScrollView {
-            MovieDetailHeaderView(viewModel: HeaderViewModel(title: viewModel.tv.name, runtime: 0, genres: viewModel.tv.genres, backdropPath: viewModel.tv.backdropPath, posterPath: viewModel.tv.posterPath))
+            MovieDetailHeaderView(viewModel: HeaderViewModel(viewModel: viewModel))
             VStack(alignment: .leading, spacing: 12) {
                 Group {
-                    Tagline(title: viewModel.tv.tagline)
+                    Tagline(title: viewModel.tv.tagline, isRedacted: false)
                     Text("Overview")
                         .foregroundColor(.white)
                         .font(.title)
@@ -24,7 +24,7 @@ struct TVDetailView: View {
                         .foregroundColor(.white)
                 }.padding([.leading, .trailing], 20)
                 CrewOverView(crewList: viewModel.tv.credits.crew)
-                CastRow(title: "Cast", castList: viewModel.tv.credits.cast)
+                CategoryRow(viewModel: CastListViewModel(castList: viewModel.tv.credits.cast), categoryName: "Cast")
                 CategoryRow(viewModel: RecommendationSeriesViewModel(seriesId: viewModel.tv.id, loadAllPages: false), categoryName: "Recommendations")
                 CategoryRow(viewModel: SimilarSeriesViewModel(seriesId: viewModel.tv.id, loadAllPages: false), categoryName: "Similar Movies")
             }

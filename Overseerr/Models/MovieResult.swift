@@ -10,7 +10,7 @@ import Foundation
 struct MovieResult: Decodable {
     let id: Int
     let mediaType: MediaType
-    let popularity: Double
+    let popularity: Double?
     let posterPath: String?
     let backdropPath: String?
     let voteCount: Int

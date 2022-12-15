@@ -13,45 +13,59 @@ struct SearchListView: View {
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
-        Group {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    Section(footer: footer()) {
-                        ForEach(searchViewModel.searchResults, id: \.id) { item in
-                            VStack {
-                                switch item {
-                                case .movie(let movieResult):
-                                    NavigationLink {
-                                        MovieDetailView(viewModel: MovieDetailViewModel(movieResult: movieResult))
-                                    } label: {
-                                        MovieCard(movie: movieResult)
-                                    }
-                                case .tv(let tvResult):
-                                    NavigationLink {
-                                        TVDetailView(viewModel: TVDetailViewModel(tvResult: tvResult))
-                                    } label: {
-                                        TVCard(tv: tvResult)
-                                    }
-                                case .person(let personResult):
-                                    PersonCard(with: personResult)
-                                }
-                                Divider()
-                                    .onAppear {
-                                        if item.id == searchViewModel.searchResults.last?.id {
-                                            searchViewModel.loadMore()
+        ZStack {
+            Group {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        Section(footer: footer()) {
+                            ForEach(searchViewModel.searchResults, id: \.id) { item in
+                                VStack {
+                                    switch item {
+                                    case .movie(let movieResult):
+                                        NavigationLink {
+                                            MovieDetailView(viewModel: .init(movieResult: movieResult))
+                                        } label: {
+                                            MovieCard(movie: movieResult)
+                                        }
+                                    case .tv(let tvResult):
+                                        NavigationLink {
+                                            TVDetailView(viewModel: .init(tvResult: tvResult))
+                                        } label: {
+                                            TVCard(tv: tvResult)
+                                        }
+                                    case .person(let personResult):
+                                        NavigationLink {
+                                            PersonDetailsView(viewModel: .init(personResult: personResult))
+                                        } label: {
+                                            PersonCard(with: personResult)
                                         }
                                     }
+                                    Divider()
+                                        .onAppear {
+                                            if item.id == searchViewModel.searchResults.last?.id {
+                                                searchViewModel.loadMore()
+                                            }
+                                        }
+                                }
                             }
                         }
                     }
-                }
-                .padding(16)
-            }.gesture(
-                DragGesture()
-                    .onChanged { _ in
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
-                    }
-            )
+                    .padding(16)
+                }.gesture(
+                    DragGesture()
+                        .onChanged { _ in
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
+                        }
+                )
+            }
+            if searchViewModel.isFetchingInitialResults {
+                ProgressView()
+            }
+            
+            if searchViewModel.noResultsFound {
+                Text("No results found.")
+                    .bold()
+            }
         }
     }
     

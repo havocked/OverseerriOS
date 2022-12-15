@@ -52,8 +52,16 @@ class APIService {
         fetch(route: TVDetailsRoute(id: id), completion: completion)
     }
     
+    func fetchPersonDetails(for id: Int, completion: @escaping (Result<PersonDetails, APIError>) -> Void) {
+        fetch(route: PersonDetailsRoute(id: id), completion: completion)
+    }
+    
     func searchMedia(for term: String, page: Int, completion: @escaping (Result<PaginatedResponse<SearchMedia>, APIError>) -> Void) {
         fetch(route: SearchRoute(term: term, page: page), completion: completion)
+    }
+    
+    func fetchCombinedCredits(for id: Int, completion: @escaping (Result<CombinedCredits, APIError>) -> Void) {
+        fetch(route: CombinedCreditsRoute(id: id), completion: completion)
     }
     
     /** Basic implementation **/
@@ -93,9 +101,15 @@ class APIService {
         }
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let result: Result<T,APIError>
+            defer {
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
             logger.log(level: .debug, "\(urlRequest)")
             if let error = error as? URLError {
-                completion(Result.failure(APIError.urlSession(error)))
+                result = .failure(APIError.urlSession(error))
             } else if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
                 var errorMessage = "No error message"
                 if let data = data {
@@ -103,16 +117,18 @@ class APIService {
                 }
                 let error = APIError.badResponse(response.statusCode, errorMessage)
                 logger.log(level: .error, "\(error.localizedDescription)")
-                completion(Result.failure(error))
+                result = .failure(error)
             } else if let data = data {
                 do {
-                    let result = try JSONDecoder().decode(T.self, from: data)
-                    completion(Result.success(result))
+                    let decodedData = try JSONDecoder().decode(T.self, from: data)
+                    result = .success(decodedData)
                 } catch {
                     let error = APIError.decoding(error as? DecodingError)
                     logger.log(level: .error, "\(error.localizedDescription)")
-                    completion(Result.failure(error))
+                    result = .failure(error)
                 }
+            } else {
+                result = .failure(.unknown)
             }
         }.resume()
     }

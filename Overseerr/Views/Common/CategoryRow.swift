@@ -35,7 +35,11 @@ struct CategoryRow<Model>: View where Model: MediaViewModel {
                                     TVCard(tv: tvResult)
                                 }
                             case .person(let personResult):
-                                EmptyView()
+                                NavigationLink {
+                                    PersonDetailsView(viewModel: .init(personResult: personResult))
+                                } label: {
+                                    PersonCard(with: personResult)
+                                }
                             }
                         }
                     }

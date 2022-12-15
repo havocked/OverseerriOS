@@ -1,33 +1,33 @@
 //
-//  TVDetailViewModel.swift
+//  PersonDetailsViewModel.swift
 //  Overseerr
 //
-//  Created by Nataniel Martin on 06/12/2022.
+//  Created by Nataniel Martin on 08/12/2022.
 //
 
 import Foundation
 
-class TVDetailViewModel: ObservableObject {
-    @Published var tv: TVDetails
+class PersonDetailsViewModel: ObservableObject {
+    @Published var person: PersonDetails
     @Published var state: FetchState = .good
     
     let service = APIService()
     
-    init(tvResult: TVResult) {
-        self.tv = TVDetails(tvResult: tvResult)
+    init(personResult: PersonResult) {
+        self.person = PersonDetails(result: personResult)
     }
     
-    func fetchTVDetails() {
+    func fetchPersonDetails() {
         guard state == .good else {
             return
         }
         
         state = .isLoading
         
-        service.fetchTVDetails(for: tv.id) { [weak self] result in
+        service.fetchPersonDetails(for: person.id) { [weak self] result in
             switch result {
             case .success(let data):
-                self?.tv = data
+                self?.person = data
                 self?.state = .loadedAll
             case .failure(let error):
                 self?.state = .error("Could not load: \(error.localizedDescription)")

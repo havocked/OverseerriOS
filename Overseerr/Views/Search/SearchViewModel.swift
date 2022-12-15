@@ -80,16 +80,14 @@ final class SearchViewModel: ObservableObject {
         }
         
         service.searchMedia(for: newQuery.term, page: newQuery.page) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.isFetchingInitialResults = false
-                
-                if case .failure(let error) = result {
-                    self?.handleSearchError(error)
-                }
-                
-                if case .success(let data) = result {
-                    self?.handleSearchResults(data)
-                }
+            self?.isFetchingInitialResults = false
+            
+            if case .failure(let error) = result {
+                self?.handleSearchError(error)
+            }
+            
+            if case .success(let data) = result {
+                self?.handleSearchResults(data)
             }
         }
     }

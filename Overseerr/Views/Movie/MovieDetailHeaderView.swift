@@ -14,7 +14,7 @@ struct MovieDetailHeaderView: View {
     
     var body: some View {
         ZStack {
-            BackdropView(isFaded: true, backdropURL: viewModel.backdropURL)
+            BackdropView(backdropURL: viewModel.backdropURL)
             VStack(alignment: .center) {
                 WebImage(url: viewModel.posterURL)
                     .resizable()

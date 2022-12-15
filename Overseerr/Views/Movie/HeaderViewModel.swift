@@ -15,6 +15,15 @@ class HeaderViewModel {
     private let backdropPath: String?
     private let posterPath: String?
     
+    convenience init(viewModel: MovieDetailViewModel) {
+        self.init(title: viewModel.movie.title, runtime: viewModel.movie.runtime, genres: viewModel.movie.genres, backdropPath: viewModel.movie.backdropPath, posterPath: viewModel.movie.posterPath)
+    }
+    
+    #warning("Need to find logic for runtime tv show")
+    convenience init(viewModel: TVDetailViewModel) {
+        self.init(title: viewModel.tv.name, runtime: nil, genres: viewModel.tv.genres, backdropPath: viewModel.tv.backdropPath, posterPath: viewModel.tv.posterPath)
+    }
+    
     init(title: String, runtime: Int?, genres: [Genre], backdropPath: String?, posterPath: String?) {
         self.title = title
         self.runtime = runtime
@@ -29,7 +38,7 @@ class HeaderViewModel {
         if let runtime = runtime {
             informations.append("\(runtime) minutes")
         }
-        let genres = genres.map({ $0.name }).joined(separator: ", ")
+        let genres = genres.map(\.name).joined(separator: ", ")
         informations.append(genres)
         return informations.joined(separator: " | ")
     }

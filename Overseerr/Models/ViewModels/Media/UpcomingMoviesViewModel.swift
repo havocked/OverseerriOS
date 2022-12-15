@@ -38,15 +38,13 @@ class UpcomingMoviesViewModel: MediaViewModel {
         state = .isLoading
         
         service.fetchUpcomingMovies(page: page) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self?.results.append(contentsOf: data.results.map({ .movie($0) }))
-                    self?.page += 1
-                    self?.state = (data.totalResults == self?.results.count) ? .good : .loadedAll
-                case .failure(let error):
-                    self?.state = .error("Could not load: \(error.localizedDescription)")
-                }
+            switch result {
+            case .success(let data):
+                self?.results.append(contentsOf: data.results.map({ .movie($0) }))
+                self?.page += 1
+                self?.state = (data.totalResults == self?.results.count) ? .good : .loadedAll
+            case .failure(let error):
+                self?.state = .error("Could not load: \(error.localizedDescription)")
             }
         }
     }
